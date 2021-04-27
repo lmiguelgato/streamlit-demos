@@ -7,8 +7,6 @@ from stock_prices.app import sp500, ticker_stock
 
 
 def intro():
-    import streamlit as st
-
     st.markdown(
         """
         **👈 Select a demo from the dropdown on the left** to see some
@@ -18,7 +16,7 @@ def intro():
         Machine Learning and Data Science projects.
 
         ###  Take a look to [my GitHub repo](https://github.com/lmiguelgato/streamlit-demos) for more details.
-    """
+        """
     )
 
 
@@ -62,9 +60,9 @@ DEMOS = OrderedDict(
 demo_name = st.sidebar.selectbox("Choose a demo:", list(DEMOS.keys()), 0)
 demo = DEMOS[demo_name][0]
 
-if demo_name == "—":
+if demo_name == "👇":
     st.write("# Welcome 👋")
-    st.write("I am Luis M Gato, *Data & Applied Scientist* at Microsoft.")
+    st.write("I am Luis M. Gato, *Data & Applied Scientist* at Microsoft.")
 else:
     st.markdown("# %s" % demo_name)
     description = DEMOS[demo_name][1]

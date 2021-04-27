@@ -16,7 +16,7 @@ def intro():
         [Streamlit](https://streamlit.io) is an open-source app framework built specifically for
         Machine Learning and Data Science projects.
 
-        ###  Take a look to [the GitHub repo](https://github.com/lmiguelgato/streamlit-demos) for more details.
+        ###  Take a look to [my GitHub repo](https://github.com/lmiguelgato/streamlit-demos) for more details.
     """
     )
 

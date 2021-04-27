@@ -19,4 +19,4 @@ Take a look at the current version of the apps [here](https://share.streamlit.io
 
 ### Acknowledgments
 
-The core ideas for this app were borrowed from [this](https://youtu.be/ZZ4B0QUHuNc) great series of tutorials.
+The core ideas for these apps were borrowed from [this](https://youtu.be/ZZ4B0QUHuNc) great series of tutorials.

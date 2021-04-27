@@ -12,3 +12,7 @@ Start the app on a local server through [Streamlit](https://streamlit.io):
 `streamlit run main.py`
 
 You can now view this Streamlit app in your browser!
+
+## Deployed apps
+
+Take a look at the current version of the apps [here](https://share.streamlit.io/lmiguelgato/streamlit-demos/main/main.py).

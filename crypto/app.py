@@ -58,7 +58,7 @@ def load_data(currency_price_unit):
 
 
 def crypto():
-    currency_price_unit = st.sidebar.selectbox('Select currency for price', ('USD', 'BTC', 'ETH'))
+    currency_price_unit = st.sidebar.selectbox('Currency in which price is displayed:', ('USD', 'BTC', 'ETH'))
     if currency_price_unit != 'USD':
         currency_price_unit = currency_price_unit.lower()
 
@@ -66,12 +66,12 @@ def crypto():
 
     ## Sidebar - Cryptocurrency selections
     sorted_coin = sorted( df['Symbol'] )
-    selected_coin = st.sidebar.multiselect('Cryptocurrency', sorted_coin, ('BTC', 'ETH', 'LTC', 'BCH'))
+    selected_coin = st.sidebar.multiselect('Cryptocurrencies:', sorted_coin, ('BTC', 'ETH', 'LTC', 'BCH'))
 
     df_selected_coin = df[ (df['Symbol'].isin(selected_coin)) ] # Filtering data
 
     ## Sidebar - Percent change timeframe
-    percent_timeframe = st.sidebar.selectbox('Percent change time frame', ['7d','24h', '1h'])
+    percent_timeframe = st.sidebar.selectbox('Time resolution:', ['7d','24h', '1h'])
 
     if percent_timeframe == '7d':
         df_change = df_selected_coin.sort_values(by=['7 days change (%)'])

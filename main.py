@@ -8,15 +8,15 @@ from stock_prices.app import ticker_stock, sp500
 def intro():
     import streamlit as st
 
-    st.sidebar.success("Select a demo above.")
-
     st.markdown(
         """
+        **👈 Select a demo from the dropdown on the left** to see some
+        data-driven apps I have developed using Streamlit.
+
         [Streamlit](https://streamlit.io) is an open-source app framework built specifically for
         Machine Learning and Data Science projects.
 
-        **👈 Select a demo from the dropdown on the left** to see some
-        data-driven apps I have developed using Streamlit.
+        ###  Take a look to [the GitHub repo](https://github.com/lmiguelgato/streamlit-demos) for more details.
     """
     )
 
@@ -49,11 +49,12 @@ DEMOS = OrderedDict(
 )
 
 
-demo_name = st.sidebar.selectbox("Choose a demo", list(DEMOS.keys()), 0)
+demo_name = st.sidebar.selectbox("Choose a demo:", list(DEMOS.keys()), 0)
 demo = DEMOS[demo_name][0]
 
 if demo_name == "—":
-    st.write("# Welcome to Streamlit! 👋")
+    st.write("# Welcome 👋")
+    st.write("I am Luis M. Gato, *Data & Applied Scientist* at Microsoft.")
 else:
     st.markdown("# %s" % demo_name)
     description = DEMOS[demo_name][1]

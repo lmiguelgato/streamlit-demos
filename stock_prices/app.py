@@ -4,7 +4,6 @@ def ticker_stock():
     import streamlit as st
     import yfinance as yf
 
-
     tickerSymbol = st.sidebar.text_input(
         "Ticker symbol (e.g. GOOGL, AAPL, MSFT, ...):", "MSFT"
     ).upper()

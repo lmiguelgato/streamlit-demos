@@ -1,6 +1,7 @@
+from collections import OrderedDict
+
 import streamlit as st
 
-from collections import OrderedDict
 from stock_prices.app import ticker_stock
 
 

@@ -64,7 +64,7 @@ demo = DEMOS[demo_name][0]
 
 if demo_name == "—":
     st.write("# Welcome 👋")
-    st.write("I am Luis M. Gato, *Data & Applied Scientist* at Microsoft.")
+    st.write("I am Luis M Gato, *Data & Applied Scientist* at Microsoft.")
 else:
     st.markdown("# %s" % demo_name)
     description = DEMOS[demo_name][1]

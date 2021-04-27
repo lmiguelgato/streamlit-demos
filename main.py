@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 import streamlit as st
 
-from stock_prices.app import ticker_stock
+from stock_prices.app import ticker_stock, sp500
 
 
 def intro():
@@ -30,6 +30,18 @@ DEMOS = OrderedDict(
                 ticker_stock,
                 """
                 History of closing stock prices and volumes for certain ticker symbol.
+                """,
+            ),
+        ),
+        (
+            "S&P 500 stock market index",
+            (
+                sp500,
+                """
+                The [S&P 500](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies) stock market index,
+                maintained by S&P Dow Jones Indices, comprises 505 common stocks issued by 500 large-cap companies
+                and traded on American stock exchanges (including the 30 companies that compose the Dow Jones
+                Industrial Average), and covers about 80 percent of the American equity market by capitalization.
                 """,
             ),
         ),

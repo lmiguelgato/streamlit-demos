@@ -1,9 +1,13 @@
+import datetime
+
+import base64
+import matplotlib.pyplot as plt
+import pandas as pd
+import streamlit as st
+import yfinance as yf
+
+
 def ticker_stock():
-    import datetime
-
-    import streamlit as st
-    import yfinance as yf
-
     tickerSymbol = st.sidebar.text_input(
         "Ticker symbol (e.g. GOOGL, AAPL, MSFT, ...):", "MSFT"
     ).upper()
@@ -27,3 +31,43 @@ def ticker_stock():
     st.line_chart(tickerDf.Close)
 
     st.line_chart(tickerDf.Volume)
+
+
+def filedownload(df):
+    # Let the user download S&P500 data
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
+    href = f'<a href="data:file/csv;base64,{b64}" download="SP500.csv">Download CSV File</a>'
+    return href
+
+
+@st.cache
+def load_data():
+    # Web scraping of S&P 500 data
+    url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+    html = pd.read_html(url, header = 0)
+    df = html[0]
+    return df
+
+
+def sp500():
+    df = load_data()
+
+    # Sidebar - Sector selection
+    sorted_sector_unique = sorted( df['GICS Sector'].unique() )
+    selected_sector = st.sidebar.multiselect('Sector', sorted_sector_unique, 'Information Technology')
+
+    # Filtering data
+    df_selected_sector = df[ (df['GICS Sector'].isin(selected_sector)) ]
+
+    st.write(f"Found {df_selected_sector.shape[0]} companies in the selected sectors.")
+    df_selected_sector.pop('SEC filings')
+    df_selected_sector.pop('CIK')
+    df_selected_sector.rename(columns = {
+        'Security': 'Name',
+        'Date first added': 'Date added',
+        'GICS Sector': 'Sector',
+        'GICS Sub-Industry': 'Sub-Sector',
+        }, inplace = True)
+    st.dataframe(df_selected_sector, height=df_selected_sector.shape[0]*30)
+    st.markdown(filedownload(df_selected_sector), unsafe_allow_html=True)

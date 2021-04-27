@@ -1,7 +1,6 @@
-import datetime
+from datetime import datetime, date, timedelta
 
 import base64
-import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 import yfinance as yf
@@ -13,9 +12,9 @@ def ticker_stock():
     ).upper()
 
     date_start = st.sidebar.date_input(
-        "Select start time:", datetime.date.today() - datetime.timedelta(days=365 * 10)
+        "Select start time:", date.today() - timedelta(days=365 * 10)
     )
-    date_end = st.sidebar.date_input("Select end time:", datetime.date.today())
+    date_end = st.sidebar.date_input("Select end time:", date.today())
     n_days = (date_end - date_start).days
 
     st.sidebar.text(f"Records from a {n_days}-days period.")
@@ -37,7 +36,7 @@ def filedownload(df):
     # Let the user download S&P500 data
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-    href = f'<a href="data:file/csv;base64,{b64}" download="SP500.csv">Download CSV File</a>'
+    href = f'<a href="data:file/csv;base64,{b64}" download="SP500_{datetime.now().strftime("%Y-%m-%d")}.csv">📥 Download data as CSV File</a>'
     return href
 
 

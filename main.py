@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from crypto.app import crypto
 
 import streamlit as st
 
@@ -42,6 +43,15 @@ DEMOS = OrderedDict(
                 maintained by S&P Dow Jones Indices, comprises 505 common stocks issued by 500 large-cap companies
                 and traded on American stock exchanges (including the 30 companies that compose the Dow Jones
                 Industrial Average), and covers about 80 percent of the American equity market by capitalization.
+                """,
+            ),
+        ),
+        (
+            "Cryptocurrency prices",
+            (
+                crypto,
+                """
+                Today's cryptocurrency prices according to [CoinMarketCap](https://coinmarketcap.com/).
                 """,
             ),
         ),

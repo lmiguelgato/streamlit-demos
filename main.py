@@ -16,7 +16,7 @@ def intro():
         Machine Learning and Data Science projects.
 
         **👈 Select a demo from the dropdown on the left** to see some
-        data-driven apps I have developed using the Streamlit.
+        data-driven apps I have developed using Streamlit.
     """
     )
 

@@ -17,6 +17,6 @@ You can now view this Streamlit app in your browser!
 
 Take a look at the current version of the apps [here](https://share.streamlit.io/lmiguelgato/streamlit-demos/main/main.py).
 
-## Acknowledgments
+### Acknowledgments
 
 The core ideas for this app were borrowed from [this](https://youtu.be/ZZ4B0QUHuNc) great series of tutorials.

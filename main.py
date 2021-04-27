@@ -1,9 +1,9 @@
 from collections import OrderedDict
-from crypto.app import crypto
 
 import streamlit as st
 
-from stock_prices.app import ticker_stock, sp500
+from crypto.app import crypto
+from stock_prices.app import sp500, ticker_stock
 
 
 def intro():
@@ -24,7 +24,7 @@ def intro():
 
 DEMOS = OrderedDict(
     [
-        ("—", (intro, None)),
+        ("👇", (intro, None)),
         (
             "Closing stock price and volume",
             (

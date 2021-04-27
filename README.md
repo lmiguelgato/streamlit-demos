@@ -1,2 +1,1 @@
-# streamlit-demos
-Data-driven apps developed using the 'streamlit' python library.
+# Data-driven apps developed using the 'streamlit' python library

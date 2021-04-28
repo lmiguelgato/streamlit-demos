@@ -1,5 +1,7 @@
 # Data-driven app developed using the 'streamlit' python library
 
+![Checks workflow](https://github.com/lmiguelgato/streamlit-demos/actions/workflows/checks.yml/badge.svg)
+
 ## Quick start
 
 Create a Python virtual environment:

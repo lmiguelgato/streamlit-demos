@@ -15,7 +15,7 @@ def filedownload(df, data_type):
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
     href = '<a href="data:file/csv;base64,{b64}" '
     href += f'download="Climate_{data_type}_{datetime.now().strftime("%Y-%m-%d")}.csv">'
-    href += '📥 Download data as CSV File</a>'
+    href += "📥 Download data as CSV File</a>"
     return href
 
 
@@ -42,7 +42,9 @@ def load_co2_data():
 def load_sea_level_data():
     # Global mean sea level:
     url_sea_levels = "https://sealevel.colorado.edu/files/2020_rel1:%20Global%20Mean%20Sea%20Level%20"
-    url_sea_levels += "(Seasonal%20Signals%20Retained)/gmsl_2020rel1_seasons_retained.txt"
+    url_sea_levels += (
+        "(Seasonal%20Signals%20Retained)/gmsl_2020rel1_seasons_retained.txt"
+    )
 
     sea_level_gl = pd.read_csv(
         url_sea_levels, delim_whitespace=True, skiprows=1, names=["year", "mm"]

@@ -80,21 +80,18 @@ def load_ocean_temp_data():
 
 def climate_co2():
     time_interval = st.sidebar.slider(
-        'Select a range of years to display:',
-        1980,
-        2020,
-        (1980, 2020)
-        )
+        "Select a range of years to display:", 1980, 2020, (1980, 2020)
+    )
 
-    col1, col2 = st.beta_columns((1,2))
+    col1, col2 = st.beta_columns((1, 2))
 
     df = load_co2_data()
 
-    df_filtered = df.iloc[time_interval[0]-1980:time_interval[1]-1980+1]
+    df_filtered = df.iloc[time_interval[0] - 1980 : time_interval[1] - 1980 + 1]
 
     col1.dataframe(
         df_filtered,
-        height=df_filtered.shape[0]*30,
+        height=df_filtered.shape[0] * 30,
     )
 
     plt.figure()
@@ -109,17 +106,14 @@ def climate_co2():
 
 def climate_sea_level():
     time_interval = st.sidebar.slider(
-        'Select a range of years to display:',
-        1992,
-        2020,
-        (1992, 2020)
-        )
+        "Select a range of years to display:", 1992, 2020, (1992, 2020)
+    )
 
-    col1, col2 = st.beta_columns((1,2))
+    col1, col2 = st.beta_columns((1, 2))
 
     df = load_sea_level_data()
 
-    df_filtered = df.iloc[time_interval[0]-1992:time_interval[1]-1992+1]
+    df_filtered = df.iloc[time_interval[0] - 1992 : time_interval[1] - 1992 + 1]
 
     col1.dataframe(
         df_filtered,
@@ -138,17 +132,14 @@ def climate_sea_level():
 
 def climate_ocean_temp():
     time_interval = st.sidebar.slider(
-        'Select a range of years to display:',
-        1880,
-        2020,
-        (1880, 2020)
-        )
+        "Select a range of years to display:", 1880, 2020, (1880, 2020)
+    )
 
-    col1, col2 = st.beta_columns((1,2))
+    col1, col2 = st.beta_columns((1, 2))
 
     df = load_ocean_temp_data()
 
-    df_filtered = df.iloc[time_interval[0]-1880:time_interval[1]-1880+1]
+    df_filtered = df.iloc[time_interval[0] - 1880 : time_interval[1] - 1880 + 1]
 
     col1.dataframe(
         df_filtered,

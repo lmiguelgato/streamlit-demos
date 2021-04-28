@@ -58,7 +58,6 @@ def load_data(currency_price_unit):
     volume_24h = []
 
     for i in listings:
-        print(i["quote"])
         coin_name.append(i["slug"])
         coin_symbol.append(i["symbol"])
         market_cap.append(i["quote"][currency_price_unit]["marketCap"])

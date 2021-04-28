@@ -1,4 +1,4 @@
-# Data-driven apps developed using the 'streamlit' python library
+# Data-driven app developed using the 'streamlit' python library
 
 ## Quick start
 
@@ -15,8 +15,8 @@ You can now view this Streamlit app in your browser!
 
 ## Deployed apps
 
-Take a look at the current version of the apps [here](https://share.streamlit.io/lmiguelgato/streamlit-demos/main/main.py).
+Take a look at the current version of the app [here](https://share.streamlit.io/lmiguelgato/streamlit-demos/main/main.py).
 
 ### Acknowledgments
 
-The core ideas for these apps were borrowed from [this](https://youtu.be/ZZ4B0QUHuNc) great series of tutorials.
+The core ideas for this app were borrowed from [this](https://youtu.be/ZZ4B0QUHuNc) great tutorial series.

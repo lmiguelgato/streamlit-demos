@@ -10,7 +10,7 @@ def intro():
     st.markdown(
         """
         **👈 Select a demo from the dropdown on the left** to see some
-        data-driven apps I have developed using Streamlit.
+        data-driven applications I have developed using Streamlit.
 
         [Streamlit](https://streamlit.io) is an open-source app framework built specifically for
         Machine Learning and Data Science projects.
@@ -22,13 +22,19 @@ def intro():
 
 DEMOS = OrderedDict(
     [
-        ("👇", (intro, None)),
+        (
+            "👇",
+            (
+                intro,
+                None,
+            ),
+        ),
         (
             "Closing stock price and volume",
             (
                 ticker_stock,
                 """
-                History of closing stock prices and volumes for certain ticker symbol.
+                Historic closing stock prices and volumes for certain ticker symbol.
                 """,
             ),
         ),
@@ -62,7 +68,7 @@ demo = DEMOS[demo_name][0]
 
 if demo_name == "👇":
     st.write("# Welcome 👋")
-    st.write("I am Luis M. Gato, *Data & Applied Scientist* at Microsoft.")
+    st.write("I am Luis M Gato, *Data & Applied Scientist* at Microsoft.")
 else:
     st.markdown("# %s" % demo_name)
     description = DEMOS[demo_name][1]

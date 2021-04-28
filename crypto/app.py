@@ -9,6 +9,23 @@ import streamlit as st
 from bs4 import BeautifulSoup
 
 
+periods = {
+    "1 hour": "hour",
+    "24 hours": "24 hours",
+    "7 days": "7 days",
+}
+orders = {
+    "1 hour": "positive_percent_change_1h",
+    "24 hours": "positive_percent_change_24h",
+    "7 days": "positive_percent_change_7d",
+}
+y_axis_plot = {
+    "1 hour" : "1 hour change (%)",
+    "24 hours" : "24 hours change (%)",
+    "7 days" : "7 days change (%)",
+}
+
+
 def filedownload(df):
     # Let the user download S&P500 data
     csv = df.to_csv(index=False)
@@ -78,20 +95,18 @@ def crypto():
 
     df = load_data(currency_price_unit)
 
-    ## Sidebar - Cryptocurrency selections
     sorted_coin = sorted(df["Symbol"])
     selected_coin = st.sidebar.multiselect(
-        "Cryptocurrencies:", sorted_coin, ("BTC", "ETH", "LTC", "BCH")
+        "Cryptocurrencies:", sorted_coin, ("BTC", "ETH", "LTC", "BCH", "XRP", "DOGE")
     )
 
-    df_selected_coin = df[(df["Symbol"].isin(selected_coin))]  # Filtering data
+    df_selected_coin = df[(df["Symbol"].isin(selected_coin))]
 
-    ## Sidebar - Percent change timeframe
-    percent_timeframe = st.sidebar.selectbox("Time resolution:", ["7d", "24h", "1h"])
+    time_resolution = st.sidebar.selectbox("Time resolution:", ["7 days", "24 hours", "1 hour"])
 
-    if percent_timeframe == "7d":
+    if time_resolution == "7 days":
         df_change = df_selected_coin.sort_values(by=["7 days change (%)"])
-    elif percent_timeframe == "24h":
+    elif time_resolution == "24 hours":
         df_change = df_selected_coin.sort_values(by=["24 hours change (%)"])
     else:
         df_change = df_selected_coin.sort_values(by=["1 hour change (%)"])
@@ -104,27 +119,16 @@ def crypto():
     df_change["positive_percent_change_24h"] = df_change["24 hours change (%)"] > 0
     df_change["positive_percent_change_7d"] = df_change["7 days change (%)"] > 0
 
-    periods = {"1h": "hour", "24h": "24 hours", "7d": "7 days"}
-    orders = {
-        "1h": "positive_percent_change_1h",
-        "24h": "positive_percent_change_24h",
-        "7d": "positive_percent_change_7d",
-    }
-    st.subheader(f"📈 Price change in the last {periods[percent_timeframe]}")
+    st.subheader(f"📈 Price change in the past {periods[time_resolution]}")
 
     plot_settings = {
-        "color": df_change[orders[percent_timeframe]].map({True: "g", False: "r"}),
+        "color": df_change[orders[time_resolution]].map({True: "g", False: "r"}),
         "xlabel": "",
         "legend": False,
     }
 
     plt.figure(figsize=(5, 1))
-    if percent_timeframe == "7d":
-        df_change.plot(y="7 days change (%)", x="Symbol", kind="bar", **plot_settings)
-    elif percent_timeframe == "24h":
-        df_change.plot(y="24 hours change (%)", x="Symbol", kind="bar", **plot_settings)
-    else:
-        df_change.plot(y="1 hour change (%)", x="Symbol", kind="bar", **plot_settings)
+    df_change.plot(y=y_axis_plot[time_resolution], x="Symbol", kind="bar", **plot_settings)
     plt.ylabel("Change (%)", fontweight="bold")
     st.pyplot(plt)
 

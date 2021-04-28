@@ -8,7 +8,6 @@ import requests
 import streamlit as st
 from bs4 import BeautifulSoup
 
-
 periods = {
     "1 hour": "hour",
     "24 hours": "24 hours",
@@ -20,9 +19,9 @@ orders = {
     "7 days": "positive_percent_change_7d",
 }
 y_axis_plot = {
-    "1 hour" : "1 hour change (%)",
-    "24 hours" : "24 hours change (%)",
-    "7 days" : "7 days change (%)",
+    "1 hour": "1 hour change (%)",
+    "24 hours": "24 hours change (%)",
+    "7 days": "7 days change (%)",
 }
 
 
@@ -87,7 +86,7 @@ def load_data(currency_price_unit):
     df["7 days change (%)"] = percent_change_7d
     df["24-hour volume"] = volume_24h
     df["Market cap."] = market_cap
-    
+
     return df
 
 
@@ -102,12 +101,16 @@ def crypto():
 
     sorted_coin = sorted(df["Symbol"])
     selected_coin = st.sidebar.multiselect(
-        "Choose which cryptos to analyze:", sorted_coin, df.sort_values(by="Market cap.", ascending=False)["Symbol"][:10]
+        "Choose which cryptos to analyze:",
+        sorted_coin,
+        df.sort_values(by="Market cap.", ascending=False)["Symbol"][:10],
     )
 
     df_selected_coin = df[(df["Symbol"].isin(selected_coin))]
 
-    time_resolution = st.sidebar.selectbox("Time resolution:", ["7 days", "24 hours", "1 hour"])
+    time_resolution = st.sidebar.selectbox(
+        "Time resolution:", ["7 days", "24 hours", "1 hour"]
+    )
 
     if time_resolution == "7 days":
         df_change = df_selected_coin.sort_values(by=["7 days change (%)"])
@@ -117,7 +120,8 @@ def crypto():
         df_change = df_selected_coin.sort_values(by=["1 hour change (%)"])
 
     st.dataframe(
-        df_selected_coin[["Name", "Symbol", "Price"]], height=df_selected_coin.shape[0] * 100
+        df_selected_coin[["Name", "Symbol", "Price"]],
+        height=df_selected_coin.shape[0] * 100,
     )
 
     df_change["positive_percent_change_1h"] = df_change["1 hour change (%)"] > 0
@@ -133,7 +137,9 @@ def crypto():
     }
 
     plt.figure(figsize=(5, 1))
-    df_change.plot(y=y_axis_plot[time_resolution], x="Symbol", kind="bar", **plot_settings)
+    df_change.plot(
+        y=y_axis_plot[time_resolution], x="Symbol", kind="bar", **plot_settings
+    )
     plt.ylabel("Change (%)", fontweight="bold")
     st.pyplot(plt)
 

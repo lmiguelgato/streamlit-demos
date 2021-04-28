@@ -25,6 +25,8 @@ jobs:
         pip install flake8==3.9.1 pylint==2.7.4 black==20.8b1 isort==5.8.0
     - name: Run checks
       run: |
+        # Define as package for pylint checks to work properly:
+        touch __init__.py
         # Python code formatter:
         black --check .
         # Check if imports are sorted alphabetically and automatically separated into sections and by type:

@@ -3,7 +3,7 @@ from collections import OrderedDict
 import streamlit as st
 
 from crypto.app import crypto
-from stock_prices.app import sp500, ticker_stock
+from stocks.app import sp500, ticker_stock
 
 
 def intro():

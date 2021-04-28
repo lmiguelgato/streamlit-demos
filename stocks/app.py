@@ -33,7 +33,6 @@ def ticker_stock():
 
 
 def filedownload(df):
-    # Let the user download S&P500 data
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
     href = f'<a href="data:file/csv;base64,{b64}" download="SP500_{datetime.now().strftime("%Y-%m-%d")}.csv">📥 Download data as CSV File</a>'
@@ -51,14 +50,12 @@ def load_data():
 
 def sp500():
     df = load_data()
-
-    # Sidebar - Sector selection
+    
     sorted_sector_unique = sorted(df["GICS Sector"].unique())
     selected_sector = st.sidebar.multiselect(
         "Industry sector:", sorted_sector_unique, "Information Technology"
     )
 
-    # Filtering data
     df_selected_sector = df[(df["GICS Sector"].isin(selected_sector))]
 
     st.write(f"Found {df_selected_sector.shape[0]} companies in the selected sectors.")

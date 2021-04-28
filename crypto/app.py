@@ -26,7 +26,6 @@ y_axis_plot = {
 
 
 def filedownload(df):
-    # Let the user download S&P500 data
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
     href = f'<a href="data:file/csv;base64,{b64}" download="Crypto_{datetime.now().strftime("%Y-%m-%d_%H%M%S")}.csv">📥 Download data as CSV File</a>'
@@ -35,6 +34,7 @@ def filedownload(df):
 
 @st.cache
 def load_data(currency_price_unit):
+    # Web scraping of cryptos data
     cmc = requests.get("https://coinmarketcap.com")
     soup = BeautifulSoup(cmc.content, "html.parser")
 
@@ -112,12 +112,7 @@ def crypto():
         "Time resolution:", ["7 days", "24 hours", "1 hour"]
     )
 
-    if time_resolution == "7 days":
-        df_change = df_selected_coin.sort_values(by=["7 days change (%)"])
-    elif time_resolution == "24 hours":
-        df_change = df_selected_coin.sort_values(by=["24 hours change (%)"])
-    else:
-        df_change = df_selected_coin.sort_values(by=["1 hour change (%)"])
+    df_change = df_selected_coin.sort_values(by=y_axis_plot[time_resolution])
 
     st.dataframe(
         df_selected_coin[["Name", "Symbol", "Price"]],

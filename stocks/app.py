@@ -35,8 +35,8 @@ def ticker_stock():
 def filedownload(df):
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-    href = f'<a href="data:file/csv;base64,{b64}" download="SP500_'
-    href += f'{datetime.now().strftime("%Y-%m-%d")}.csv">📥 Download data as CSV File</a>'
+    href = '<a href="data:file/csv;base64,{b64}" '
+    href += f'download="SP500_{datetime.now().strftime("%Y-%m-%d")}.csv">📥 Download data as CSV File</a>'
     return href
 
 

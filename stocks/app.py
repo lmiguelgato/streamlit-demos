@@ -59,10 +59,17 @@ def sp500():
 
     df_selected_sector = df[(df["GICS Sector"].isin(selected_sector))]
 
-    st.write(f"Found {df_selected_sector.shape[0]} companies in the selected sectors.")
-    df_selected_sector.pop("SEC filings")
-    df_selected_sector.pop("CIK")
-    df_selected_sector.rename(
+    sorted_sub_sector_unique = sorted(df_selected_sector["GICS Sub-Industry"].unique())
+    selected_sub_sector = st.sidebar.multiselect(
+        "Sub-sector:", sorted_sub_sector_unique, sorted_sub_sector_unique
+    )
+
+    df_selected_sub_sector = df_selected_sector[(df_selected_sector["GICS Sub-Industry"].isin(selected_sub_sector))]
+
+    st.write(f"Found {df_selected_sub_sector.shape[0]} companies in the selected sectors.")
+    df_selected_sub_sector.pop("SEC filings")
+    df_selected_sub_sector.pop("CIK")
+    df_selected_sub_sector.rename(
         columns={
             "Security": "Name",
             "Date first added": "Date added",
@@ -71,5 +78,5 @@ def sp500():
         },
         inplace=True,
     )
-    st.dataframe(df_selected_sector, height=df_selected_sector.shape[0] * 30)
-    st.markdown(filedownload(df_selected_sector), unsafe_allow_html=True)
+    st.dataframe(df_selected_sub_sector, height=df_selected_sub_sector.shape[0] * 30)
+    st.markdown(filedownload(df_selected_sub_sector), unsafe_allow_html=True)

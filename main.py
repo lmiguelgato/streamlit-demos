@@ -75,7 +75,7 @@ DEMOS = OrderedDict(
             (
                 climate_sea_level,
                 """
-                Global mean sea level according to the [Sea Level Research Group](https://www.sealevel.colorado.edu/)
+                Global mean sea level according to the [Sea Level Research Group](https://sealevel.colorado.edu/)
                 at the University of Colorado.
                 """,
             ),
@@ -86,7 +86,7 @@ DEMOS = OrderedDict(
                 climate_ocean_temp,
                 """
                 Global annual mean of land-ocean temperatures change in Celsius degrees with respect to the 1951-1980 mean,
-                according to the [Goddard Institute for Space Studies](https://www.data.giss.nasa.gov/) from the NASA.
+                according to the [Goddard Institute for Space Studies](https://data.giss.nasa.gov/) from the NASA.
                 """,
             ),
         ),

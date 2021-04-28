@@ -2,6 +2,7 @@ from collections import OrderedDict
 
 import streamlit as st
 
+from climate.app import climate_co2, climate_ocean_temp, climate_sea_level
 from crypto.app import crypto
 from stocks.app import sp500, ticker_stock
 
@@ -56,6 +57,33 @@ DEMOS = OrderedDict(
                 crypto,
                 """
                 Today's cryptocurrency prices according to [CoinMarketCap](https://coinmarketcap.com/).
+                """,
+            ),
+        ),
+        (
+            "Climate: CO2 concentration",
+            (
+                climate_co2,
+                """
+                Globally averaged atmospheric CO2 on marine surface according to the [NOAA](https://www.noaa.gov/).
+                """,
+            ),
+        ),
+        (
+            "Climate: Sea level",
+            (
+                climate_sea_level,
+                """
+                Relative global sea level increase according to the [University of Colorado](https://www.cu.edu/).
+                """,
+            ),
+        ),
+        (
+            "Climate: Ocean temperature",
+            (
+                climate_ocean_temp,
+                """
+                Relative global sea level increase according to the [University of Colorado](https://www.cu.edu/).
                 """,
             ),
         ),

@@ -50,7 +50,7 @@ def load_data():
 
 def sp500():
     df = load_data()
-    
+
     sorted_sector_unique = sorted(df["GICS Sector"].unique())
     selected_sector = st.sidebar.multiselect(
         "Industry sector:", sorted_sector_unique, "Information Technology"

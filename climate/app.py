@@ -90,7 +90,9 @@ def climate_co2():
 
     plt.figure(figsize=(5, 1))
     df.plot.scatter(x="year", y="co2")
-    plt.title("CO2", fontweight="bold")
+    plt.ylabel("CO2 concentration (ppm)")
+    plt.xlabel("Year")
+    plt.grid()
     st.pyplot(plt)
 
     st.markdown(filedownload(df, "CO2"), unsafe_allow_html=True)
@@ -106,7 +108,9 @@ def climate_sea_level():
 
     plt.figure(figsize=(5, 1))
     df.plot.scatter(x="year", y="mm")
-    plt.title("Relative sea level", fontweight="bold")
+    plt.ylabel("Relative sea level (mm)")
+    plt.xlabel("Year")
+    plt.grid()
     st.pyplot(plt)
 
     st.markdown(filedownload(df, "sea_level"), unsafe_allow_html=True)
@@ -122,7 +126,9 @@ def climate_ocean_temp():
 
     plt.figure(figsize=(5, 1))
     df.plot.scatter(x="year", y="temp")
-    plt.title("Relative temperature", fontweight="bold")
+    plt.ylabel("Relative temperature (°C)")
+    plt.xlabel("Year")
+    plt.grid()
     st.pyplot(plt)
 
     st.markdown(filedownload(df, "ocean_temp"), unsafe_allow_html=True)

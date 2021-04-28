@@ -65,7 +65,8 @@ DEMOS = OrderedDict(
             (
                 climate_co2,
                 """
-                Globally averaged atmospheric CO2 on marine surface according to the [NOAA](https://www.noaa.gov/).
+                Globally averaged atmospheric CO2 concentration on marine surface
+                according to NOAA's [Global Monitoring Laboratory](https://www.esrl.noaa.gov/gmd/).
                 """,
             ),
         ),
@@ -74,8 +75,8 @@ DEMOS = OrderedDict(
             (
                 climate_sea_level,
                 """
-                Relative global sea level increase, with respect to mid-2003
-                according to the [University of Colorado](https://www.cu.edu/).
+                Global mean sea level according to the [Sea Level Research Group](https://www.sealevel.colorado.edu/)
+                at the University of Colorado.
                 """,
             ),
         ),
@@ -84,8 +85,8 @@ DEMOS = OrderedDict(
             (
                 climate_ocean_temp,
                 """
-                Global land-ocean temperature change in Celsius degrees with respect to January 1950,
-                according to the [NASA](https://www.nasa.gov/).
+                Global annual mean of land-ocean temperatures change in Celsius degrees with respect to the 1951-1980 mean,
+                according to the [Goddard Institute for Space Studies](https://www.data.giss.nasa.gov/) from the NASA.
                 """,
             ),
         ),

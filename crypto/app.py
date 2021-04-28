@@ -50,6 +50,7 @@ def load_data(currency_price_unit):
 
     coin_name = []
     coin_symbol = []
+    market_cap = []
     percent_change_1h = []
     percent_change_24h = []
     percent_change_7d = []
@@ -57,8 +58,10 @@ def load_data(currency_price_unit):
     volume_24h = []
 
     for i in listings:
+        print(i["quote"])
         coin_name.append(i["slug"])
         coin_symbol.append(i["symbol"])
+        market_cap.append(i["quote"][currency_price_unit]["marketCap"])
         price.append(i["quote"][currency_price_unit]["price"])
         percent_change_1h.append(i["quote"][currency_price_unit]["percentChange1h"])
         percent_change_24h.append(i["quote"][currency_price_unit]["percentChange24h"])
@@ -74,6 +77,7 @@ def load_data(currency_price_unit):
             "7 days change (%)",
             "Price",
             "24-hour volume",
+            "Market cap.",
         ]
     )
     df["Name"] = coin_name
@@ -83,6 +87,8 @@ def load_data(currency_price_unit):
     df["24 hours change (%)"] = percent_change_24h
     df["7 days change (%)"] = percent_change_7d
     df["24-hour volume"] = volume_24h
+    df["Market cap."] = market_cap
+    
     return df
 
 
@@ -97,7 +103,7 @@ def crypto():
 
     sorted_coin = sorted(df["Symbol"])
     selected_coin = st.sidebar.multiselect(
-        "Cryptocurrencies:", sorted_coin, ("BTC", "ETH", "LTC", "BCH", "XRP", "DOGE")
+        "Choose which cryptos to analyze:", sorted_coin, df.sort_values(by="Market cap.", ascending=False)["Symbol"][:10]
     )
 
     df_selected_coin = df[(df["Symbol"].isin(selected_coin))]
@@ -112,7 +118,7 @@ def crypto():
         df_change = df_selected_coin.sort_values(by=["1 hour change (%)"])
 
     st.dataframe(
-        df_change[["Name", "Symbol", "Price"]], height=df_selected_coin.shape[0] * 100
+        df_selected_coin[["Name", "Symbol", "Price"]], height=df_selected_coin.shape[0] * 100
     )
 
     df_change["positive_percent_change_1h"] = df_change["1 hour change (%)"] > 0

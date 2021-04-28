@@ -64,9 +64,13 @@ def sp500():
         "Sub-sector:", sorted_sub_sector_unique, sorted_sub_sector_unique
     )
 
-    df_selected_sub_sector = df_selected_sector[(df_selected_sector["GICS Sub-Industry"].isin(selected_sub_sector))]
+    df_selected_sub_sector = df_selected_sector[
+        (df_selected_sector["GICS Sub-Industry"].isin(selected_sub_sector))
+    ]
 
-    st.write(f"Found {df_selected_sub_sector.shape[0]} companies in the selected sectors.")
+    st.write(
+        f"Found {df_selected_sub_sector.shape[0]} companies in the selected sectors."
+    )
     df_selected_sub_sector.pop("SEC filings")
     df_selected_sub_sector.pop("CIK")
     df_selected_sub_sector.rename(

@@ -21,8 +21,6 @@ def filedownload(df, data_type):
 
 @st.cache
 def load_co2_data():
-    # Web scraping of climate data
-
     # Globally averaged atmospheric CO2 on marine surface - annual mean data:
     url_co2_annmean_gl = (
         "https://www.esrl.noaa.gov/gmd/webdata/ccgg/trends/co2/co2_annmean_gl.txt"
@@ -81,54 +79,87 @@ def load_ocean_temp_data():
 
 
 def climate_co2():
+    time_interval = st.sidebar.slider(
+        'Select a range of years to display:',
+        1980,
+        2020,
+        (1980, 2020)
+        )
+
+    col1, col2 = st.beta_columns((1,2))
+
     df = load_co2_data()
 
-    st.dataframe(
-        df,
-        height=df.shape[0] * 100,
+    df_filtered = df.iloc[time_interval[0]-1980:time_interval[1]-1980+1]
+
+    col1.dataframe(
+        df_filtered,
+        height=df_filtered.shape[0]*30,
     )
 
-    plt.figure(figsize=(5, 1))
-    df.plot.scatter(x="year", y="co2")
+    plt.figure()
+    df_filtered.plot.scatter(x="year", y="co2")
     plt.ylabel("CO2 concentration (ppm)")
     plt.xlabel("Year")
     plt.grid()
-    st.pyplot(plt)
+    col2.pyplot(plt)
 
-    st.markdown(filedownload(df, "CO2"), unsafe_allow_html=True)
+    st.markdown(filedownload(df_filtered, "CO2"), unsafe_allow_html=True)
 
 
 def climate_sea_level():
+    time_interval = st.sidebar.slider(
+        'Select a range of years to display:',
+        1992,
+        2020,
+        (1992, 2020)
+        )
+
+    col1, col2 = st.beta_columns((1,2))
+
     df = load_sea_level_data()
 
-    st.dataframe(
-        df,
+    df_filtered = df.iloc[time_interval[0]-1992:time_interval[1]-1992+1]
+
+    col1.dataframe(
+        df_filtered,
         height=df.shape[0] * 100,
     )
 
     plt.figure(figsize=(5, 1))
-    df.plot.scatter(x="year", y="mm")
+    df_filtered.plot.scatter(x="year", y="mm")
     plt.ylabel("Relative sea level (mm)")
     plt.xlabel("Year")
     plt.grid()
-    st.pyplot(plt)
+    col2.pyplot(plt)
 
-    st.markdown(filedownload(df, "sea_level"), unsafe_allow_html=True)
+    st.markdown(filedownload(df_filtered, "sea_level"), unsafe_allow_html=True)
 
 
 def climate_ocean_temp():
+    time_interval = st.sidebar.slider(
+        'Select a range of years to display:',
+        1880,
+        2020,
+        (1880, 2020)
+        )
+
+    col1, col2 = st.beta_columns((1,2))
+
     df = load_ocean_temp_data()
 
-    st.dataframe(
-        df,
+    df_filtered = df.iloc[time_interval[0]-1880:time_interval[1]-1880+1]
+
+    col1.dataframe(
+        df_filtered,
         height=df.shape[0] * 100,
     )
 
     plt.figure(figsize=(5, 1))
-    df.plot.scatter(x="year", y="temp")
+    df_filtered.plot.scatter(x="year", y="temp")
     plt.ylabel("Relative temperature (°C)")
     plt.xlabel("Year")
     plt.grid()
-    st.pyplot(plt)
+    col2.pyplot(plt)
 
-    st.markdown(filedownload(df, "ocean_temp"), unsafe_allow_html=True)
+    st.markdown(filedownload(df_filtered, "ocean_temp"), unsafe_allow_html=True)

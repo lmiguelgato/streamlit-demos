@@ -74,7 +74,8 @@ DEMOS = OrderedDict(
             (
                 climate_sea_level,
                 """
-                Relative global sea level increase according to the [University of Colorado](https://www.cu.edu/).
+                Relative global sea level increase, with respect to mid-2003
+                according to the [University of Colorado](https://www.cu.edu/).
                 """,
             ),
         ),
@@ -83,7 +84,8 @@ DEMOS = OrderedDict(
             (
                 climate_ocean_temp,
                 """
-                Global land-ocean temperature change in 0.01 degrees Celsius with respect to Jan 1950 according to the [NASA](https://www.nasa.gov/).
+                Global land-ocean temperature change in Celsius degrees with respect to January 1950,
+                according to the [NASA](https://www.nasa.gov/).
                 """,
             ),
         ),

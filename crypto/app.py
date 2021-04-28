@@ -28,7 +28,8 @@ y_axis_plot = {
 def filedownload(df):
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-    href = f'<a href="data:file/csv;base64,{b64}" download="Crypto_{datetime.now().strftime("%Y-%m-%d_%H%M%S")}.csv">📥 Download data as CSV File</a>'
+    href = f'<a href="data:file/csv;base64,{b64}" download="Crypto_'
+    href += f'{datetime.now().strftime("%Y-%m-%d_%H%M%S")}.csv">📥 Download data as CSV File</a>'
     return href
 
 

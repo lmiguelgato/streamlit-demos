@@ -5,6 +5,16 @@ import pandas as pd
 import streamlit as st
 import yfinance as yf
 
+import cufflinks as cf
+
+
+def filedownload(df):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
+    href = f'<a href="data:file/csv;base64,{b64}" '
+    href += f'download="SP500_{datetime.now().strftime("%Y-%m-%d")}.csv">📥 Download data as CSV File</a>'
+    return href
+
 
 def ticker_stock():
     tickerSymbol = st.sidebar.text_input(
@@ -12,32 +22,29 @@ def ticker_stock():
     ).upper()
 
     date_start = st.sidebar.date_input(
-        "Select start time:", date.today() - timedelta(days=365 * 10)
+        "Select start time:", date.today() - timedelta(days=365)
     )
     date_end = st.sidebar.date_input("Select end time:", date.today())
     n_days = (date_end - date_start).days
 
     st.sidebar.text(f"Records from a {n_days}-days period.")
 
-    possible_intervals = ["1d", "1wk", "1mo"]
-
-    interval = st.sidebar.select_slider("Time resolution:", options=possible_intervals)
-
     tickerData = yf.Ticker(tickerSymbol)
 
-    tickerDf = tickerData.history(start=date_start, end=date_end, interval=interval)
+    tickerDf = tickerData.history(start=date_start, end=date_end)
 
-    st.line_chart(tickerDf.Close)
+    qf = cf.QuantFig(
+        tickerDf,
+        title=f"Stock price for {tickerSymbol}",
+        legend='top',
+        name=tickerSymbol)
+    qf.add_volume()
+    qf.add_sma(periods=20, color='red')
+    qf.add_ema(periods=20, color='green')
 
-    st.line_chart(tickerDf.Volume)
+    st.plotly_chart(qf.iplot(asFigure=True), use_container_width=True)
 
-
-def filedownload(df):
-    csv = df.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-    href = '<a href="data:file/csv;base64,{b64}" '
-    href += f'download="SP500_{datetime.now().strftime("%Y-%m-%d")}.csv">📥 Download data as CSV File</a>'
-    return href
+    st.markdown(filedownload(tickerDf), unsafe_allow_html=True)
 
 
 @st.cache

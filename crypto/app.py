@@ -115,7 +115,9 @@ def crypto():
 
     df_change = df_selected_coin.sort_values(by=y_axis_plot[time_resolution])
 
-    st.dataframe(
+    col1, col2 = st.beta_columns((1, 2))
+
+    col1.dataframe(
         df_selected_coin[["Name", "Symbol", "Price"]],
         height=df_selected_coin.shape[0] * 100,
     )
@@ -124,7 +126,7 @@ def crypto():
     df_change["positive_percent_change_24h"] = df_change["24 hours change (%)"] > 0
     df_change["positive_percent_change_7d"] = df_change["7 days change (%)"] > 0
 
-    st.subheader(f"📈 Price change in the past {periods[time_resolution]}")
+    col2.subheader(f"📈 Price change in the past {periods[time_resolution]}")
 
     plot_settings = {
         "color": df_change[orders[time_resolution]].map({True: "g", False: "r"}),
@@ -132,11 +134,11 @@ def crypto():
         "legend": False,
     }
 
-    plt.figure(figsize=(5, 1))
+    plt.figure()
     df_change.plot(
         y=y_axis_plot[time_resolution], x="Symbol", kind="bar", **plot_settings
     )
     plt.ylabel("Change (%)", fontweight="bold")
-    st.pyplot(plt)
+    col2.pyplot(plt)
 
-    st.markdown(filedownload(df_selected_coin), unsafe_allow_html=True)
+    col1.markdown(filedownload(df_selected_coin), unsafe_allow_html=True)

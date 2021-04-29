@@ -7,6 +7,9 @@ from crypto.app import crypto
 from stocks.app import sp500, ticker_stock
 
 
+st.set_page_config(layout="wide")
+
+
 def intro():
     st.markdown(
         """

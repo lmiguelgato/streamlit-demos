@@ -13,7 +13,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def filedownload(df, data_type):
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()  # strings <-> bytes conversions
-    href = '<a href="data:file/csv;base64,{b64}" '
+    href = f'<a href="data:file/csv;base64,{b64}" '
     href += f'download="Climate_{data_type}_{datetime.now().strftime("%Y-%m-%d")}.csv">'
     href += "📥 Download data as CSV File</a>"
     return href

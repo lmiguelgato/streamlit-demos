@@ -21,25 +21,22 @@ def ticker_stock():
     ).upper()
 
     date_start = st.sidebar.date_input(
-        "Select start time:", date.today() - timedelta(days=365)
+        "Select start time:", date.today() - timedelta(days=30 * 3)
     )
     date_end = st.sidebar.date_input("Select end time:", date.today())
     n_days = (date_end - date_start).days
 
     st.sidebar.text(f"Records from a {n_days}-days period.")
 
-    ema = st.sidebar.slider("Exponential moving-average (EMA):", 5, 50, 20)
-    sma = st.sidebar.slider("Simple moving-average (SMA):", 5, 50, 20)
+    ema = st.sidebar.slider("Exponential moving-average (EMA):", 1, 30, 7)
+    sma = st.sidebar.slider("Simple moving-average (SMA):", 1, 30, 15)
 
     tickerData = yf.Ticker(tickerSymbol)
 
     tickerDf = tickerData.history(start=date_start, end=date_end)
 
     qf = cf.QuantFig(
-        tickerDf,
-        title=f"Stock price for {tickerSymbol}",
-        legend="top",
-        name=tickerSymbol,
+        tickerDf, name=tickerSymbol, up_color="#00BB00", down_color="#EE0000"
     )
     qf.add_volume()
     qf.add_sma(periods=sma, color="red")

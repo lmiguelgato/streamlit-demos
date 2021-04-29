@@ -33,11 +33,11 @@ DEMOS = OrderedDict(
             ),
         ),
         (
-            "Closing stock price and volume",
+            "Historic stock price and volume",
             (
                 ticker_stock,
                 """
-                Historic closing stock prices and volumes for certain ticker symbol.
+                Historic stock prices and volumes for certain ticker symbol.
                 """,
             ),
         ),

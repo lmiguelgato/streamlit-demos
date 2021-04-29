@@ -1,10 +1,13 @@
 import base64
+import os
 from datetime import date, datetime, timedelta
 
 import cufflinks as cf
 import pandas as pd
 import streamlit as st
 import yfinance as yf
+
+PASSWORD = os.environ.get("PASSWORD")
 
 
 def filedownload(df):
@@ -45,6 +48,14 @@ def ticker_stock():
     st.plotly_chart(qf.iplot(asFigure=True), use_container_width=True)
 
     st.markdown(filedownload(tickerDf), unsafe_allow_html=True)
+
+    pwd = st.sidebar.text_input(
+        "Authenticate to launch the trading bot:", max_chars=50, type="password"
+    )
+    if pwd == PASSWORD:
+        st.write("Authenticated! Launch the trading bot when you're ready.")
+    else:
+        st.write("Wrong password! Try again.")
 
 
 @st.cache

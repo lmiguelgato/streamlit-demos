@@ -7,7 +7,10 @@ import pandas as pd
 import streamlit as st
 import yfinance as yf
 
-PASSWORD = os.environ.get("PASSWORD")
+
+@st.cache
+def get_password():
+    return os.environ.get("LOGNAME", "?")
 
 
 def filedownload(df):
@@ -52,10 +55,13 @@ def ticker_stock():
     pwd = st.sidebar.text_input(
         "Authenticate to launch the trading bot:", max_chars=50, type="password"
     )
-    if pwd == PASSWORD:
-        st.write("Authenticated! Launch the trading bot when you're ready.")
-    else:
-        st.write("Wrong password! Try again.")
+    status = ""
+    if st.sidebar.button("Login"):
+        if pwd == get_password():
+            status = "Authenticated! Launch the trading bot when you're ready."
+        else:
+            status = f"Wrong password! Try again."
+    st.sidebar.write(status)
 
 
 @st.cache

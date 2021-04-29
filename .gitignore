@@ -127,4 +127,4 @@ dmypy.json
 .vscode/settings.json
 
 .DS_Store
-.streamlit/secrets.toml
+.streamlit/

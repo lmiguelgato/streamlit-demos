@@ -10,7 +10,7 @@ import yfinance as yf
 
 @st.cache
 def get_password():
-    return os.environ.get("LOGNAME", "?")
+    return st.secrets["PASSWORD"]
 
 
 def filedownload(df):

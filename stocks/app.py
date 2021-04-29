@@ -50,7 +50,7 @@ def ticker_stock():
         "Authenticate to launch the trading bot:", max_chars=50, type="password"
     )
 
-    status = {"message" : "", "auth" : False}
+    status = {"message": "", "auth": False}
     if st.sidebar.button("Login"):
         if pwd == st.secrets["PASSWORD"]:
             status["auth"] = True
@@ -58,14 +58,13 @@ def ticker_stock():
         else:
             status["auth"] = False
             status["message"] = "Wrong password!"
-        
+
         st.sidebar.write(status["message"])
-    
+
     if status["auth"]:
         st.sidebar.write("You are logged in.")
     elif status["message"]:
         st.sidebar.write("Please, authenticate to start trading.")
-
 
 
 @st.cache

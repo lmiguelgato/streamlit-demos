@@ -82,5 +82,5 @@ def sp500():
         },
         inplace=True,
     )
-    st.dataframe(df_selected_sub_sector, height=df_selected_sub_sector.shape[0] * 30)
+    st.dataframe(df_selected_sub_sector, height=df_selected_sub_sector.shape[0] * 50)
     st.markdown(filedownload(df_selected_sub_sector), unsafe_allow_html=True)

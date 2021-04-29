@@ -106,6 +106,8 @@ else:
     st.markdown("# %s" % demo_name)
     description = DEMOS[demo_name][1]
     if description:
+        st.write("")
+        st.write("")
         st.write(description)
     # Clear everything from the intro page.
     # We only have 4 elements in the page so this is intentional overkill.

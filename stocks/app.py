@@ -28,6 +28,13 @@ def ticker_stock():
 
     st.sidebar.text(f"Records from a {n_days}-days period.")
 
+    ema = st.sidebar.slider(
+        "Exponential moving-average (EMA):", 5, 50, 20
+    )
+    sma = st.sidebar.slider(
+        "Simple moving-average (SMA):", 5, 50, 20
+    )
+
     tickerData = yf.Ticker(tickerSymbol)
 
     tickerDf = tickerData.history(start=date_start, end=date_end)
@@ -39,8 +46,8 @@ def ticker_stock():
         name=tickerSymbol,
     )
     qf.add_volume()
-    qf.add_sma(periods=20, color="red")
-    qf.add_ema(periods=20, color="green")
+    qf.add_sma(periods=sma, color="red")
+    qf.add_ema(periods=ema, color="green")
 
     st.plotly_chart(qf.iplot(asFigure=True), use_container_width=True)
 

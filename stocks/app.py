@@ -1,16 +1,10 @@
 import base64
-import os
 from datetime import date, datetime, timedelta
 
 import cufflinks as cf
 import pandas as pd
 import streamlit as st
 import yfinance as yf
-
-
-@st.cache
-def get_password():
-    return st.secrets["PASSWORD"]
 
 
 def filedownload(df):
@@ -57,10 +51,10 @@ def ticker_stock():
     )
     status = ""
     if st.sidebar.button("Login"):
-        if pwd == get_password():
+        if pwd == st.secrets["PASSWORD"]:
             status = "Authenticated! Launch the trading bot when you're ready."
         else:
-            status = f"Wrong password! Try again."
+            status = f"Wrong password!"
     st.sidebar.write(status)
 
 

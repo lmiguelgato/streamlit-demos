@@ -23,4 +23,4 @@ Take a look at the current version of the app [here](https://share.streamlit.io/
 
 Some ideas for this app were borrowed from [this](https://youtu.be/ZZ4B0QUHuNc) great tutorial series.
 
-Some methods for financial analysis were borrowed from [Python for Finance Cookbook](https://www.packtpub.com/product/python-for-finance-cookbook/9781789618518)
+Some methods for financial analysis were borrowed from [Python for Finance Cookbook](https://www.packtpub.com/product/python-for-finance-cookbook/9781789618518).

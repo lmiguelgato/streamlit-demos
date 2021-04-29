@@ -54,7 +54,7 @@ def sp500():
 
     sorted_sector_unique = sorted(df["GICS Sector"].unique())
     selected_sector = st.sidebar.multiselect(
-        "Industry sector:", sorted_sector_unique, "Information Technology"
+        "Industry sector:", sorted_sector_unique, []
     )
 
     df_selected_sector = df[(df["GICS Sector"].isin(selected_sector))]

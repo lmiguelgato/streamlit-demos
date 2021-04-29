@@ -1,11 +1,10 @@
 import base64
 from datetime import date, datetime, timedelta
 
+import cufflinks as cf
 import pandas as pd
 import streamlit as st
 import yfinance as yf
-
-import cufflinks as cf
 
 
 def filedownload(df):
@@ -36,11 +35,12 @@ def ticker_stock():
     qf = cf.QuantFig(
         tickerDf,
         title=f"Stock price for {tickerSymbol}",
-        legend='top',
-        name=tickerSymbol)
+        legend="top",
+        name=tickerSymbol,
+    )
     qf.add_volume()
-    qf.add_sma(periods=20, color='red')
-    qf.add_ema(periods=20, color='green')
+    qf.add_sma(periods=20, color="red")
+    qf.add_ema(periods=20, color="green")
 
     st.plotly_chart(qf.iplot(asFigure=True), use_container_width=True)
 

@@ -6,7 +6,6 @@ from climate.app import climate_co2, climate_ocean_temp, climate_sea_level
 from crypto.app import crypto
 from stocks.app import sp500, ticker_stock
 
-
 st.set_page_config(layout="wide")
 
 

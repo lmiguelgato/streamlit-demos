@@ -19,6 +19,11 @@ class SmaStrategy(bt.Strategy):
     params = (("ma_period", 20),)
 
     def __init__(self):
+        self.strat_data = {
+            "buy": list(),
+            "sell": list(),
+        }
+
         # keep track of close price in the series
         self.data_close = self.datas[0].close
 
@@ -43,14 +48,30 @@ class SmaStrategy(bt.Strategy):
         # report executed order
         if order.status in [order.Completed]:
             if order.isbuy():
+                self.strat_data["buy"].append(
+                    {
+                        "time": self.datas[0].datetime.date(0).isoformat(),
+                        "price": order.executed.price,
+                        "cost": order.executed.value,
+                        "commission": order.executed.comm,
+                    }
+                )
                 self.log(
-                    f"BUY at Price: {order.executed.price:.2f}, Cost: {order.executed.value:.2f}, Commission: {order.executed.comm:.2f}"
+                    f"BUY executed at Price: {order.executed.price:.2f}, Cost: {order.executed.value:.2f}, Commission: {order.executed.comm:.2f}"
                 )
                 self.price = order.executed.price
                 self.comm = order.executed.comm
             else:
+                self.strat_data["sell"].append(
+                    {
+                        "time": self.datas[0].datetime.date(0).isoformat(),
+                        "price": order.executed.price,
+                        "cost": order.executed.value,
+                        "commission": order.executed.comm,
+                    }
+                )
                 self.log(
-                    f"SELL at Price: {order.executed.price:.2f}, Cost: {order.executed.value:.2f}, Commission: {order.executed.comm:.2f}"
+                    f"SELL executed at Price: {order.executed.price:.2f}, Cost: {order.executed.value:.2f}, Commission: {order.executed.comm:.2f}"
                 )
 
         # report failed order
@@ -77,12 +98,12 @@ class SmaStrategy(bt.Strategy):
         if not self.position:
             # buy condition
             if self.data_close[0] > self.sma[0]:
-                self.log(f"BUY at Price: {self.data_close[0]:.2f}")
+                self.log(f"BUY created at Price: {self.data_close[0]:.2f}")
                 self.order = self.buy()
         else:
             # sell condition
             if self.data_close[0] < self.sma[0]:
-                self.log(f"SELL at Price: {self.data_close[0]:.2f}")
+                self.log(f"SELL created at Price: {self.data_close[0]:.2f}")
                 self.order = self.sell()
 
 
@@ -149,7 +170,7 @@ def ticker_stock():
 
     if status["auth"]:
         st.sidebar.write("You are logged in.")
-        st.write("Launching trading bot ...")
+        st.write("Launching trading bot with SMA strategy ...")
 
         data = bt.feeds.PandasData(dataname=tickerDf)
 

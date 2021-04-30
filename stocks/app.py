@@ -10,13 +10,13 @@ import yfinance as yf
 
 class MyBuySell(bt.observers.BuySell):
     plotlines = dict(
-        buy=dict(marker='^', markersize=8.0, color='blue', fillstyle='full'),
-        sell=dict(marker='v', markersize=8.0, color='red', fillstyle='full')
+        buy=dict(marker="^", markersize=8.0, color="blue", fillstyle="full"),
+        sell=dict(marker="v", markersize=8.0, color="red", fillstyle="full"),
     )
 
 
 class SmaStrategy(bt.Strategy):
-    params = (('ma_period', 20), )
+    params = (("ma_period", 20),)
 
     def __init__(self):
         # keep track of close price in the series
@@ -29,12 +29,11 @@ class SmaStrategy(bt.Strategy):
 
         # add a simple moving average indicator
         self.sma = bt.ind.SMA(self.datas[0], period=self.params.ma_period)
-        
-    def log(self, txt):
-        '''Logging function'''
-        dt = self.datas[0].datetime.date(0).isoformat()
-        st.write(f'{dt} --> {txt}')
 
+    def log(self, txt):
+        """Logging function"""
+        dt = self.datas[0].datetime.date(0).isoformat()
+        st.write(f"{dt} --> {txt}")
 
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
@@ -44,15 +43,19 @@ class SmaStrategy(bt.Strategy):
         # report executed order
         if order.status in [order.Completed]:
             if order.isbuy():
-                self.log(f'BUY at Price: {order.executed.price:.2f}, Cost: {order.executed.value:.2f}, Commission: {order.executed.comm:.2f}')
+                self.log(
+                    f"BUY at Price: {order.executed.price:.2f}, Cost: {order.executed.value:.2f}, Commission: {order.executed.comm:.2f}"
+                )
                 self.price = order.executed.price
                 self.comm = order.executed.comm
             else:
-                self.log(f'SELL at Price: {order.executed.price:.2f}, Cost: {order.executed.value:.2f}, Commission: {order.executed.comm:.2f}')
+                self.log(
+                    f"SELL at Price: {order.executed.price:.2f}, Cost: {order.executed.value:.2f}, Commission: {order.executed.comm:.2f}"
+                )
 
         # report failed order
         elif order.status in [order.Canceled, order.Margin, order.Rejected]:
-            self.log('Order Failed')
+            self.log("Order Failed")
 
         # set no pending order
         self.order = None
@@ -61,8 +64,9 @@ class SmaStrategy(bt.Strategy):
         if not trade.isclosed:
             return
 
-        self.log(f'OPERATION RESULT --- Gross: {trade.pnl:.2f}, Net: {trade.pnlcomm:.2f}')
-
+        self.log(
+            f"OPERATION RESULT --- Gross: {trade.pnl:.2f}, Net: {trade.pnlcomm:.2f}"
+        )
 
     def next(self):
         # do nothing if an order is pending
@@ -73,19 +77,18 @@ class SmaStrategy(bt.Strategy):
         if not self.position:
             # buy condition
             if self.data_close[0] > self.sma[0]:
-                self.log(f'BUY at Price: {self.data_close[0]:.2f}')
+                self.log(f"BUY at Price: {self.data_close[0]:.2f}")
                 self.order = self.buy()
         else:
             # sell condition
             if self.data_close[0] < self.sma[0]:
-                self.log(f'SELL at Price: {self.data_close[0]:.2f}')
+                self.log(f"SELL at Price: {self.data_close[0]:.2f}")
                 self.order = self.sell()
 
 
-
 class SmaSignal(bt.Signal):
-    params = (('period', 20), )
-    
+    params = (("period", 20),)
+
     def __init__(self):
         self.lines.signal = self.data - bt.ind.SMA(period=self.p.period)
 
@@ -149,9 +152,9 @@ def ticker_stock():
         st.write("Launching trading bot ...")
 
         data = bt.feeds.PandasData(dataname=tickerDf)
-        
+
         # create a Cerebro entity
-        cerebro = bt.Cerebro(stdstats = False)
+        cerebro = bt.Cerebro(stdstats=False)
 
         # set up the backtest
         cerebro.adddata(data)
@@ -161,7 +164,9 @@ def ticker_stock():
         cerebro.addobserver(bt.observers.Value)
 
         # run backtest
-        st.markdown(f"### Starting Portfolio Value: {cerebro.broker.getvalue():.2f} USD")
+        st.markdown(
+            f"### Starting Portfolio Value: {cerebro.broker.getvalue():.2f} USD"
+        )
         cerebro.run()
         st.markdown(f"### Final Portfolio Value: {cerebro.broker.getvalue():.2f} USD")
 

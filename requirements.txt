@@ -2,6 +2,6 @@ backtrader==1.9.76.123
 beautifulsoup4==4.9.3
 cufflinks==0.17.3
 matplotlib==3.4.1
-streamlit==0.81.0
+streamlit==1.9.1
 watchdog==2.0.3
 yfinance==0.1.59
